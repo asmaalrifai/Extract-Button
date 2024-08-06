@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { title } from "process";
 
 const formSchema = z.object({
   url: z.string().url({ message: "Please enter a valid URL" }),
@@ -46,6 +47,7 @@ const BasicForm = () => {
     fetchTitle(values.url);
   };
 
+  console.log(titles)
   return (
     <div>
       <Form {...form}>
@@ -72,12 +74,13 @@ const BasicForm = () => {
       <div className="title-cards flex flex-wrap gap-4 mt-8">
         {titles.map((title, index) => (
           <div key={index} className="card p-4 bg-black rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold">Element: {title}</h3>
+            <h3 className="text-lg font-semibold">{title}</h3>
           </div>
         ))}
       </div>
     </div>
   );
+  
 };
 
 export default BasicForm;
