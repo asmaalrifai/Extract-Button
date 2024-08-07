@@ -13,7 +13,7 @@ export default async function handler(
       return res.status(400).json({ error: "Invalid URL parameter" });
     }
 
-    // Fetch the XML content from the URL
+    //
     const response = await fetch(url as string);
     if (!response.ok) {
       throw new Error(
