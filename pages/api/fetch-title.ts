@@ -13,7 +13,7 @@ export default async function handler(
       return res.status(400).json({ error: "Invalid URL parameter" });
     }
 
-    //
+    // Fetch the XML content from the URL
     const response = await fetch(url as string);
     if (!response.ok) {
       throw new Error(
@@ -22,11 +22,11 @@ export default async function handler(
     }
 
     const xmlText = await response.text();
-    console.log("Fetched XML:", xmlText);
+    // console.log("Fetched XML:", xmlText);
 
     // Parse XML and extract titles using xml2js
     const result = await parseStringPromise(xmlText);
-    const titles = result.rss.channel[0].item.map((item: any) => item.title[0]);
+    const titles = result.rss.channel[0].item.map((item: {title: string}) => item.title[0]);
 
     console.log("Extracted titles:", titles);
     return res.status(200).json({ titles });
