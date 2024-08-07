@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { title } from "process";
 
 const formSchema = z.object({
   url: z.string().url({ message: "Please enter a valid URL" }),
@@ -32,14 +31,19 @@ const BasicForm = () => {
 
   const fetchTitle = async (url: string) => {
     try {
-      const response = await fetch(
-        `/api/fetch-title?url=${encodeURIComponent(url)}`
-      );
-      //the array
-      const { title } = await response.json();
-      setTitles((prevTitles) => [...prevTitles, title]);
+      const response = await fetch(`/api/fetch-title?url=${encodeURIComponent(url)}`);
+      const data = await response.json();
+      console.log('API Response:', data);
+      if (Array.isArray(data.titles)) {
+        const cleanTitles = data.titles.map((title: string) =>
+          title.replace('<![CDATA[', '').replace(']]>', '')
+        );
+        setTitles(cleanTitles);
+      } else {
+        throw new Error('Invalid response structure');
+      }
     } catch (error) {
-      console.error("Failed to fetch title:", error);
+      console.error('Failed to fetch title:', error);
     }
   };
 
@@ -47,7 +51,6 @@ const BasicForm = () => {
     fetchTitle(values.url);
   };
 
-  console.log(titles)
   return (
     <div>
       <Form {...form}>
@@ -80,7 +83,6 @@ const BasicForm = () => {
       </div>
     </div>
   );
-  
 };
 
 export default BasicForm;

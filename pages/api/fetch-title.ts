@@ -1,21 +1,37 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
-import cheerio from "cheerio";
+import fetch from "node-fetch";
+import { parseStringPromise } from "xml2js";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { url } = req.query;
-
-  if (!url || typeof url !== "string") {
-    return res.status(400).json({ error: "Invalid URL" });
-  }
-
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
-    const { data } = await axios.get(url);
-    const $ = cheerio.load(data);
-    const title = $("title").text();
+    const { url } = req.query;
+    if (!url || typeof url !== "string") {
+      console.error("Invalid URL parameter:", url);
+      return res.status(400).json({ error: "Invalid URL parameter" });
+    }
 
-    res.status(200).json({ title });
+    // Fetch the XML content from the URL
+    const response = await fetch(url as string);
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch from URL: ${url}, status: ${response.status}`
+      );
+    }
+
+    const xmlText = await response.text();
+    console.log("Fetched XML:", xmlText);
+
+    // Parse XML and extract titles using xml2js
+    const result = await parseStringPromise(xmlText);
+    const titles = result.rss.channel[0].item.map((item: any) => item.title[0]);
+
+    console.log("Extracted titles:", titles);
+    return res.status(200).json({ titles });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch the title" });
+    console.error("API Error:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}
