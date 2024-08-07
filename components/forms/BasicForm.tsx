@@ -52,7 +52,7 @@ const BasicForm = () => {
   };
 
   return (
-    <div>
+    <div className="text-right">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -61,20 +61,20 @@ const BasicForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>URL</FormLabel>
-                <FormControl>
+                <FormControl className="text-right">
                   <Input placeholder="Paste URL" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Enter a URL to extract its title.
+                  Enter a URL to extract its titles.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Fetch Title</Button>
+          <Button type="submit">Fetch Titles</Button>
         </form>
       </Form>
-      <div className="title-cards flex flex-wrap gap-4 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-4 mt-8 text-right">
         {titles.map((title, index) => (
           <div key={index} className="card p-4 bg-black rounded-lg shadow-md">
             <h3 className="text-lg font-semibold">{title}</h3>
