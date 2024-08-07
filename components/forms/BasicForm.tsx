@@ -52,31 +52,38 @@ const BasicForm = () => {
   };
 
   return (
-    <div className="text-right">
+    <div className="p-4 ">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="url"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>URL</FormLabel>
-                <FormControl className="text-right">
-                  <Input placeholder="Paste URL" {...field} />
-                </FormControl>
-                <FormDescription>
-                  Enter a URL to extract its titles.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Fetch Titles</Button>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-end space-y-4">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <Button className="mt-2 p-5" type="submit">
+              Fetch Titles
+            </Button>
+            <FormField
+              control={form.control}
+              name="url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="sr-only">URL</FormLabel>
+                  <FormControl>
+                    <Input className="text-right" placeholder="الصق الرابط" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+          <FormDescription className="text-right">
+            Enter a URL to extract its titles.
+          </FormDescription>
+          <FormMessage />
         </form>
       </Form>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-4 mt-8 text-right">
+      <div className="text-right grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
         {titles.map((title, index) => (
-          <div key={index} className="card p-4 bg-black rounded-lg shadow-md">
+          <div
+            key={index}
+            className="card p-4 bg-card text-card-foreground rounded-lg shadow-md border border-border hover:bg-gray-600 hover:cursor-pointer"
+          >
             <h3 className="text-lg font-semibold">{title}</h3>
           </div>
         ))}

@@ -26,7 +26,9 @@ export default async function handler(
 
     // Parse XML and extract titles using xml2js
     const result = await parseStringPromise(xmlText);
-    const titles = result.rss.channel[0].item.map((item: {title: string}) => item.title[0]);
+    const titles = result.rss.channel[0].item.map(
+      (item: { title: string }) => item.title[0]
+    );
 
     console.log("Extracted titles:", titles);
     return res.status(200).json({ titles });
