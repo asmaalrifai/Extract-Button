@@ -1,5 +1,6 @@
 // pages/api/fetch-titles.ts
 import type { NextApiRequest, NextApiResponse } from "next";
+import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 
 export default async function handler(
