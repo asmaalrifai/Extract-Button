@@ -39,7 +39,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: right;
 }
 
 .table th,
@@ -58,5 +58,6 @@
 }
 
 .table tr:hover {
-  background-color: #ddd;
+  background-color: rgb(75, 85, 99);
+  cursor: pointer;
 }
