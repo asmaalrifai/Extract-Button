@@ -58,46 +58,45 @@ const BasicForm = () => {
     <div className={styles.container}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
+          <Button type="submit" className={styles.button}>
+            استخراج العناوين
+          </Button>
           <FormField
             control={form.control}
             name="url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>URL</FormLabel>
+                <FormLabel>عنوان الموقع</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Paste URL"
+                    placeholder="الصق الرابط"
                     {...field}
                     className={styles.input}
                   />
                 </FormControl>
                 <FormDescription>
-                  Enter a URL to extract its titles.
+                  .الصق الرابط لاستخراج العناوين
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className={styles.button}>
-            Fetch Titles
-          </Button>
         </form>
       </Form>
       {titles.length > 0 && (
         <div className={styles.titles}>
-          <h3>Titles:</h3>
           <table className={styles.table}>
             <thead>
               <tr>
+                <th>العناوين</th>
                 <th>#</th>
-                <th>Title</th>
               </tr>
             </thead>
             <tbody>
               {titles.map((title, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
                   <td>{title}</td>
+                  <td>{index + 1}</td>
                 </tr>
               ))}
             </tbody>

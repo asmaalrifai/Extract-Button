@@ -3,28 +3,36 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  margin-top: 16px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
 }
 
 .form {
   display: flex;
-  justify-content: flex-start; /* Align form to the left */
+  justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 600px;
 }
 
 .input {
-  margin-right: 8px;
+  margin-right: 50px;
+  text-align: right;
+  top: 40%;
+  left: 50%;
 }
 
 .button {
   background-color: #1b245e;
+  border-radius: 10rem;
+
   color: white;
   border: none;
   border-radius: 50px;
-  padding: 8px 16px;
   cursor: pointer;
+  margin: 10px;
 }
 
 .button:hover {
@@ -33,13 +41,14 @@
 
 .titles {
   margin-top: 16px;
-  width: 100%; /* Make sure the table takes full width */
+  width: 100%;
+  max-width: 800px;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  text-align: right;
+  margin: 0 auto;
 }
 
 .table th,
@@ -50,11 +59,13 @@
 
 .table th {
   background-color: #1b245e;
+  color: white;
   text-align: center;
 }
 
 .table tr:nth-child(even) {
   background-color: #1b245e;
+  color: white;
 }
 
 .table tr:hover {
