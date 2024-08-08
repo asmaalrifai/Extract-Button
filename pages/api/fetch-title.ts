@@ -1,3 +1,4 @@
+// pages/api/fetch-titles.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
@@ -22,11 +23,12 @@ export default async function handler(
     }
 
     const xmlText = await response.text();
-    // console.log("Fetched XML:", xmlText);
 
     // Parse XML and extract titles using xml2js
     const result = await parseStringPromise(xmlText);
-    const titles = result.rss.channel[0].item.map((item: {title: string}) => item.title[0]);
+    const titles = result.rss.channel[0].item.map(
+      (item: { title: string }) => item.title[0]
+    );
 
     console.log("Extracted titles:", titles);
     return res.status(200).json({ titles });
