@@ -1,4 +1,3 @@
-// components/FetchTitles.tsx
 import React, { useState } from "react";
 import styles from "./FetchTitles.module.css";
 
